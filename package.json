@@ -9,7 +9,8 @@
       "start": "next start",
       "start:express": "node dist/index.js",
       "lint": "next lint",
-      "translate-en": "ts-node --project tsconfig.server.json --transpile-only ./server/translate.ts"
+      "translate-en": "ts-node --project tsconfig.server.json --transpile-only ./server/translate.ts",
+      "train": "ts-node --project tsconfig.server.json --transpile-only ./server/train.ts"
    },
    "dependencies": {
       "@heroicons/react": "^1.0.5",
