@@ -34,6 +34,19 @@ export const CardWrapper = styled.div`
 
    @media (min-width: ${(props) => props.theme.devices.desktop}) {
       grid-template-columns: repeat(3, 1fr);
-      grid-row: 1;
+      grid-row: 2;
+   }
+`;
+
+export const PickAndSaveCommentsWrapper = styled.div`
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   @media (min-width: ${(props) => props.theme.devices.desktop}) {
+      grid-column: span 3;
+   }
+   & > div {
+      display: grid;
+      place-content: center;
    }
 `;

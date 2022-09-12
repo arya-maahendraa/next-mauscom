@@ -91,6 +91,15 @@ export const GlobalStyle = createGlobalStyle`
    .d-none {
       display: none;
    }
+
+   .ilustration-desc {
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 0 1.1em;
+      max-width: 55ch;
+      margin-top: 1em;
+   }
+   
 `;
 
 export const styledTheme = {

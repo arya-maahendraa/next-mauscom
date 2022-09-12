@@ -30,6 +30,21 @@ export const getVidioDetails = async (url: string) => {
    };
 };
 
+export const addTrainData = async (data: any) => {
+   const response = await axios({
+      method: "post",
+      url: "http://localhost:3000/api/train-data/add",
+      headers: {
+         Accept: "application/json",
+         ContentType: "application/json",
+      },
+      data: {
+         url: "http://localhost:3000",
+         newData: data,
+      },
+   });
+};
+
 export const getComments = async (url: string, nextPageToken: string) => {
    const comments = {
       positive: [] as IComment[],

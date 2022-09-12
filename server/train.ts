@@ -111,7 +111,11 @@ function splitTrainingAndTesting(data: RawData): {
    };
 }
 
-function loadTrainingAdnTestData(trainPath: string, testPath: string) {
+function loadTrainingAdnTestData(
+   trainPath: string,
+   testPath: string,
+   newDataSetPath: string
+) {
    logger.info("Loading and preprocess training data");
    const preprocessing = new Preprocessing(slanglWords, stopWords, akarata);
    const trainData: TrainData = { positive: [], negative: [] };
@@ -128,13 +132,35 @@ function loadTrainingAdnTestData(trainPath: string, testPath: string) {
          };
       })
       .filter((e) => e.text.length > 0);
+   logger.info("total train dataset lama: %o", rawTrainData.length);
+   const rawNewTrainData = fs
+      .readFileSync(newDataSetPath)
+      .toString("utf-8")
+      .split("\r\n")
+      .map((term) => {
+         const terms = term.split(";").map((e) => e.trim());
+         return {
+            text: preprocessing.process(terms[0]),
+            class: terms[1],
+         };
+      })
+      .filter((e) => e.text.length > 0);
+   logger.info("total train dataset baru: %o", rawNewTrainData.length);
    const rawTestData = JSON.parse(fs.readFileSync(testPath).toString("utf-8"));
 
    for (let i = 0; i < rawTrainData.length; i++) {
       if (rawTrainData[i].class === "positive") {
          trainData.positive.push(rawTrainData[i].text);
-      } else {
+      } else if (rawTrainData[i].class === "negative") {
          trainData.negative.push(rawTrainData[i].text);
+      }
+   }
+
+   for (let i = 0; i < rawNewTrainData.length; i++) {
+      if (rawNewTrainData[i].class === "positive") {
+         trainData.positive.push(rawNewTrainData[i].text);
+      } else if (rawNewTrainData[i].class === "negative") {
+         trainData.negative.push(rawNewTrainData[i].text);
       }
    }
 
@@ -143,7 +169,7 @@ function loadTrainingAdnTestData(trainPath: string, testPath: string) {
       if (text.length > 0) {
          if (rawTestData[i].class === "Positive") {
             testData.positive.push(text);
-         } else {
+         } else if (rawTestData[i].class === "Negative") {
             testData.negative.push(text);
          }
       }
@@ -154,6 +180,7 @@ function loadTrainingAdnTestData(trainPath: string, testPath: string) {
 
 function doTraining() {
    const dataTrainPath = path.join(__dirname, "assets/data/Dataset_indo.csv");
+   const newDataSetPath = path.join(__dirname, "assets/data/NewDataSet.csv");
    const dataTestPath = path.join(
       __dirname,
       "assets/data/latih-debat-capres.json"
@@ -161,7 +188,8 @@ function doTraining() {
    console.time("load training data");
    const { trainData, testData } = loadTrainingAdnTestData(
       dataTrainPath,
-      dataTestPath
+      dataTestPath,
+      newDataSetPath
    );
    logger.info(
       `train data: ${

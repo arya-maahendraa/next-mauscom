@@ -12,6 +12,8 @@ export default class YoutubeVideo {
     */
    public async getVideoDetail(videoId: string) {
       try {
+         console.log("get to youtube api");
+
          const response = await axios({
             method: "get",
             baseURL: config.youtubeAPI.url,
@@ -25,8 +27,11 @@ export default class YoutubeVideo {
                id: videoId,
             },
          });
+         console.log("get to youtube api success");
+
          return response.data;
       } catch (err: any) {
+         console.log(err);
          return err.response.data;
       }
    }

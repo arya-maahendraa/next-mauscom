@@ -32,6 +32,7 @@ export default class NiaveBayes {
       }
       return 0;
    }
+   
    public testing(test: TestData, model: NaiveBayesModel, alpha: number): ConfusionMatrix {
       const cm: ConfusionMatrix = {
          TP: 0,

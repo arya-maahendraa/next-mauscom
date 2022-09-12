@@ -9,6 +9,9 @@ export const Card = styled.div`
 `;
 
 export const CardTitleWrapper = styled.div`
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
    h1 {
       color: ${(props) => [props.theme.textMain]};
       font-size: 1em;

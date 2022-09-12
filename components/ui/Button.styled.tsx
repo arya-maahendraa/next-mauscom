@@ -13,3 +13,10 @@ export const MoreDetailBtn = styled(Button)`
    background-color: ${(props) => props.theme.mainYellow};
    font-weight: 600;
 `;
+
+export const PickAndSaveBtn = styled(Button)`
+   margin-top: 1.25em;
+   color: #6f6409;
+   background-color: ${(props) => props.theme.mainYellow};
+   font-weight: 600;
+`;

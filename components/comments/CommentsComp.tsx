@@ -36,8 +36,8 @@ const CommentsCardBody = styled(CardBody)`
 const CommentsComp: FC<{
    title: string;
    comments: IComment[];
-}> = ({ title, comments }) => {
-   const perPage = 5;
+   perPage?: number;
+}> = ({ title, comments, perPage = 5 }) => {
    const [currPage, setCurrPage] = useState(1);
 
    const getComments = () => {

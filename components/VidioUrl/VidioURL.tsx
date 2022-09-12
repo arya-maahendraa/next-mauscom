@@ -93,7 +93,7 @@ const VidioURL = () => {
          <VidioURLInput
             type="text"
             placeholder="https://youtube/watch?v=xxxxx"
-            defaultValue="https://www.youtube.com/watch?v=LQln_CWLLTY"
+            defaultValue="https://www.youtube.com/watch?v=Ck4gJyO4GMc"
             ref={inputUrl}
          />
          <ProcessBtn className="flex-center" onClick={processBtnHandler}>

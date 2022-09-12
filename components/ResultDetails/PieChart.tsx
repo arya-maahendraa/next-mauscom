@@ -10,6 +10,7 @@ const PieChart: FC<{
    negative: number;
    totalUndefined: number;
 }> = ({ positive, negative, totalUndefined }) => {
+   const total = positive + negative + totalUndefined;
    const data = {
       labels: ["Positive", "Negative", "Undefined"],
       datasets: [
@@ -40,7 +41,27 @@ const PieChart: FC<{
                data={data}
                redraw={true}
                height={250}
-               options={{ maintainAspectRatio: false }}
+               options={{
+                  maintainAspectRatio: false,
+                  interaction: {
+                     intersect: false,
+                     mode: "index",
+                  },
+                  plugins: {
+                     tooltip: {
+                        callbacks: {
+                           label: (tooltipItems) => {
+                              const val = (tooltipItems.parsed / total) * 100;
+                              return `${
+                                 tooltipItems.label
+                              } comments: ${val.toFixed(2)}% (${
+                                 tooltipItems.parsed
+                              })`;
+                           },
+                        },
+                     },
+                  },
+               }}
             />
          </CardBody>
       </Card>
